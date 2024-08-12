@@ -17,6 +17,7 @@ package org.thingsboard.mqtt.broker.service.historical.stats;
 
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,7 +37,6 @@ import org.thingsboard.mqtt.broker.queue.TbQueueProducer;
 import org.thingsboard.mqtt.broker.queue.common.TbProtoQueueMsg;
 import org.thingsboard.mqtt.broker.queue.provider.HistoricalDataQueueFactory;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -47,6 +47,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import static java.time.ZoneOffset.UTC;
 import static org.thingsboard.mqtt.broker.common.util.BrokerConstants.MSG_RELATED_HISTORICAL_KEYS;
+import static org.thingsboard.mqtt.broker.common.util.BrokerConstants.PROCESSED_BYTES;
 
 @Component
 @Slf4j
@@ -143,6 +144,14 @@ public class TbMessageStatsReportClientImpl implements TbMessageStatsReportClien
         if (enabled) {
             AtomicLong al = stats.get(key);
             al.incrementAndGet();
+        }
+    }
+
+    @Override
+    public void reportTraffic(long bytes) {
+        if (enabled) {
+            AtomicLong al = stats.get(PROCESSED_BYTES);
+            al.addAndGet(bytes);
         }
     }
 

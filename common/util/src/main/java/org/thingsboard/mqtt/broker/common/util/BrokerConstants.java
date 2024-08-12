@@ -33,10 +33,11 @@ public class BrokerConstants {
     public static final String DROPPED_MSGS = "droppedMsgs";
     public static final String SESSIONS = "sessions";
     public static final String SUBSCRIPTIONS = "subscriptions";
+    public static final String PROCESSED_BYTES = "processedBytes";
 
-    public static final List<String> MSG_RELATED_HISTORICAL_KEYS = List.of(INCOMING_MSGS, OUTGOING_MSGS, DROPPED_MSGS);
+    public static final List<String> MSG_RELATED_HISTORICAL_KEYS = List.of(INCOMING_MSGS, OUTGOING_MSGS, DROPPED_MSGS, PROCESSED_BYTES);
 
-    public static final List<String> HISTORICAL_KEYS = List.of(INCOMING_MSGS, OUTGOING_MSGS, DROPPED_MSGS, SESSIONS, SUBSCRIPTIONS);
+    public static final List<String> HISTORICAL_KEYS = List.of(INCOMING_MSGS, OUTGOING_MSGS, DROPPED_MSGS, SESSIONS, SUBSCRIPTIONS, PROCESSED_BYTES);
 
     public static final byte[] LOCAL_ADR;
 
@@ -47,6 +48,11 @@ public class BrokerConstants {
             throw new RuntimeException(e);
         }
     }
+
+    public static final int TCP_PACKET_BYTES_OVERHEAD = 66;
+    public static final int TLS_PACKET_BYTES_OVERHEAD = 95;
+    public static final int TLS_CONNECT_BYTES_OVERHEAD = 4078;
+    public static final int TLS_DISCONNECT_BYTES_OVERHEAD = 364;
 
     public static final int WS_MAX_CONTENT_LENGTH = 65536;
     public static final String WS_PATH = "/mqtt";
@@ -60,7 +66,10 @@ public class BrokerConstants {
 
     public static final int DEFAULT_RECEIVE_MAXIMUM = 65535;
 
+    public static final String NULL_CHAR_STR = "\u0000";
+
     public static final char TOPIC_DELIMITER = '/';
+    public static final String TOPIC_DELIMITER_STR = "/";
     public static final String MULTI_LEVEL_WILDCARD = "#";
     public static final String SINGLE_LEVEL_WILDCARD = "+";
     public static final String SHARED_SUBSCRIPTION_PREFIX = "$share/";
@@ -96,6 +105,9 @@ public class BrokerConstants {
     public static final String SERVICE_ID_HEADER = "serviceId";
     public static final String EMPTY_STR = "";
 
+    public static final String COMMA = ",";
+    public static final String COLON = ":";
+
     //client session event constants
     public static final String REQUEST_ID_HEADER = "requestId";
     public static final String RESPONSE_TOPIC_HEADER = "responseTopic";
@@ -129,4 +141,11 @@ public class BrokerConstants {
     public static final String WEB_SOCKET_DEFAULT_SUBSCRIPTION_TOPIC_FILTER = "sensors/#";
     public static final int WEB_SOCKET_DEFAULT_SUBSCRIPTION_QOS = 1;
     public static final String WEB_SOCKET_DEFAULT_SUBSCRIPTION_COLOR = "#34920C";
+
+    public static final String MQTT_CONNECTIVITY = "mqtt";
+    public static final String MQTTS_CONNECTIVITY = "mqtts";
+    public static final String WS_CONNECTIVITY = "ws";
+    public static final String WSS_CONNECTIVITY = "wss";
+
+    public static final String CONNECTIVITY_KEY = "connectivity";
 }
